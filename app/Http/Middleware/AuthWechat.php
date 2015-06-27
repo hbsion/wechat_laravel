@@ -9,11 +9,9 @@ class AuthWechat {
 
     public function handle($request, Closure $next)
     {
-
-        $auth = App::make('wechat.auth');
         if (!Session::has('logged_user')) {
+            $auth = App::make('wechat.auth');
             $user = $auth->authorize($to = null, $scope = 'snsapi_userinfo', $state = 'STATE');
-//             $auth->user();
             Session::put('logged_user', $user->openid);
         }
         return $next($request);

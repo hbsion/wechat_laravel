@@ -14,7 +14,7 @@
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" charset="utf-8">
-    wx.config(<?php echo $js->config(array('configWXDeviceWiFi'), true, true,true) ?>);
+    wx.config(<?php echo $js->config(array('configWXDeviceWiFi'), false, true,true) ?>);
     wx.ready(function(){
         wx.checkJsApi({
             jsApiList: ['configWXDeviceWiFi'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
@@ -23,7 +23,7 @@
                     var resstr = res['err_msg'];
                     if(resstr == 'configWXDeviceWiFi:ok'){
                         alert('配网成功');
-                        wx.closeWindow();
+                        window.location.href='http://w.webbig.cn/device/addStep3?sn=<?php echo $data['sn']?>&ticket=<?php echo $data['ticket']?>';
                     }else if(resstr == 'configWXDeviceWiFi:cancel'){
                         alert('已经退出airkiss');
                         wx.closeWindow();

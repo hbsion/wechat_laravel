@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://wx.webbig.cn',
+	'url' => 'http://w.webbig.cn',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -145,6 +145,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
         'Overtrue\LaravelWechat\ServiceProvider',
+        'Ixudra\Curl\CurlServiceProvider',
 
 	],
 
@@ -194,6 +195,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
         'Wechat'    => 'Overtrue\LaravelWechat\Facade',
+        'Curl'      => 'Ixudra\Curl\Facades\Curl',
 
 	],
 

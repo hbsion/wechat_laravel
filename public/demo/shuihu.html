@@ -1,0 +1,256 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>智能茶壶</title>
+<link href="css/common.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div class="main">
+    
+    	<div class="banner">
+        	<div class="btnSwitch on" id="btnSwitch"></div>
+        	<div class="cont">
+                
+                <div class="autoBg">
+                    <div class="autoBg2">自动</div>
+                </div>
+                
+            	<div class="contInner">
+                    
+                    <div class="text01" id="modeText01">待机中</div>
+                    
+                    <div class="text02" id="modeText02"><span>15</span><em>℃</em></div>
+                    
+                    <div class="text03" id="modeText03">泡茶模式</div>
+                    
+                    <b class="waterBg"></b>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="mode">
+        	<dl class="modeTtem">
+            	<dt>模式选择</dt>
+                <dd class="mulBtn">
+                	<b class="selected">泡茶模式</b><b>咖啡模式</b><b>冲奶模式</b>
+                </dd>
+            </dl>
+        </div>
+        
+        <div class="btnBox">
+        	<b class="icon01">全自动</b>
+        	<b class="icon02">手动加水<div>5</div></b>
+        	<b class="icon03">手动煮水</b>
+        </div>
+    
+    </div>    
+    
+	<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		$(function() {			
+			
+			//开关机
+			$('#btnSwitch').click(function(){
+				if($(this).hasClass('on')){
+					$(this).removeClass('on');
+					$('.mulBtn b, .btnBox b').addClass('disabled');
+					$('#modeText02').html('已关机');
+					$('#modeText01, #modeText03').css('opacity',0);
+					$('.autoBg').hide();
+					$('.waterBg').hide();
+					$('.btnBox b').removeClass('selected active').find('div').hide();
+					clearTimeout(timer00);
+					clearTimeout(timer04);
+					clearInterval(timer01);
+					clearInterval(timer02);
+					clearInterval(timer03);
+				}else{
+					$(this).addClass('on');
+					$('.mulBtn b, .btnBox b').removeClass('disabled');
+					$('#modeText02').html('<span>15</span><em>℃</em>');
+					$('#modeText01, #modeText03').css('opacity',1);
+					$('#modeText01').html('待机中');
+					$('.waterBg').show();
+				}
+			});
+			
+			//选择模式
+			$('.mulBtn b').click(function(){
+				if($(this).hasClass('disabled')){
+					return false;
+				}else{
+					$(this).addClass('selected').siblings().removeClass('selected');
+					$('#modeText03').text($(this).text());
+				}
+			});
+			
+			//终止动作
+			function stopActivity(){
+					clearTimeout(timer00);
+					clearTimeout(timer04);
+					clearInterval(timer01);
+					clearInterval(timer02);
+					clearInterval(timer03);
+					$('.btnBox b').removeClass('selected active').find('div').hide();
+					$('#modeText02').css('opacity',1).html('<span>15</span><em>℃</em>');
+					$('#modeText01').html('待机中');
+					$('.waterBg').stop(true,true).css('height','68%');
+					$('.autoBg').hide();
+			}
+			
+			//全自动/手动加水/手动煮水
+			$('.btnBox b').click(function(){
+				var self = $(this);
+				if(self.hasClass('disabled')){
+					return false;
+				}else if(self.hasClass('active')){
+					switch(self.index()){
+						case 0:
+							stopActivity();
+							break;
+						case 1:
+							if($('.btnBox b').eq(0).hasClass('active')){
+								stopActivity();
+								jiashui();
+							}else{
+								stopActivity();
+							}
+							break;
+						case 2:
+							if($('.btnBox b').eq(0).hasClass('active')){
+								stopActivity();
+								zhushui();
+							}else{
+								stopActivity();
+							}
+							break;
+					}
+				}else{
+					stopActivity();
+					self.addClass('selected').siblings().removeClass('selected');
+					switch(self.index()){
+						case 0:
+							auto();
+							break;
+						case 1:
+							jiashui();
+							break;
+						case 2:
+							zhushui();
+							break;
+					}
+				}
+			});
+			
+			var timer00, timer01, timer02, timer03, timer04;
+			function auto(){
+				$('.btnBox b').eq(0).addClass('active');
+				$('.autoBg').show().find('div').text('自动');
+				jiashui();
+				timer00 = setTimeout(function(){
+					clearInterval(timer01);
+					$('.btnBox b > div').hide();
+					zhushui();
+					clearTimeout(timer00);
+				},6000);
+				timer04 = setTimeout(function(){
+					$('.btnBox b').eq(0).removeClass('selected active');
+					$('.autoBg').hide();
+					//$('.waterBg').css('height','2.6rem');
+					clearTimeout(timer04);
+				},16000);
+			}
+			
+			function jiashui(){
+				$('#modeText01').html('加水中');
+				var num = 5;
+				$('.btnBox b').eq(1).addClass('active').find('div').show().text(num);
+				$('.waterBg').stop(true,true).css('height','2.6rem').animate({'height':'68%'},5800,function(){});
+				timer01 = setInterval(function(){
+					if(num <= 0){
+						clearInterval(timer01);
+						$('.btnBox b > div').hide();
+						$('#modeText01').html('待机中');
+						$('.btnBox b').eq(1).removeClass('selected active');
+						//$('.waterBg').css('height','2.6rem');
+						return false;
+					}
+					num--;
+					$('.btnBox b').eq(1).find('div').text(num);
+				},1000);
+			}
+			
+			function zhushui(){
+				if(!$('.btnBox b').eq(0).hasClass('active')) $('.autoBg').show().find('div').text('手动');
+				$('#modeText01').html('煮水中');
+				$('.waterBg').stop(true,true).css('height','68%');
+				var tem = 15;
+				$('.btnBox b').eq(2).addClass('active');
+				timer02 = setInterval(function(){
+					if(tem >= 100){
+						clearInterval(timer02);
+						var count = 0;
+						timer03 = setInterval(function(){
+							if(count >= 6){
+								clearInterval(timer03);
+								$('#modeText01').html('待机中');
+								$('.btnBox b').eq(2).removeClass('selected active');
+								$('#modeText02').find('span').text('15');
+								$('.autoBg').hide();
+								//$('.waterBg').css('height','2.6rem');
+								return false;
+							}
+							count++;
+							if($('#modeText02').css('opacity') == 1){
+								$('#modeText02').css('opacity',0);
+							}else{
+								$('#modeText02').css('opacity',1);
+							}
+						},600);
+						return false;
+					}
+					tem += 5;
+					$('#modeText02').find('span').text(tem);
+				},300);
+			}
+			
+			//
+			
+			/*
+			$('#roundBg04').swipe( {
+				swipeStatus:function(event, phase, direction, distance, duration,fingerCount){
+
+				}
+            });
+			
+			$('#menu').swipe( {
+				swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+					switch(direction){
+						case 'left':
+							
+							
+							break;
+						case 'right':
+							
+							
+							break;
+					}
+				},
+				threshold:30
+            });
+			*/
+			
+        });
+    </script>
+    
+</body>
+</html>

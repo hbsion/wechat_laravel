@@ -1,0 +1,506 @@
+/*
+    common style
+*/
+body {
+
+    background-color: #E8E8E8;
+    font-family: "Microsoft Yahei";
+    padding:0px;
+    margin:0px;
+}
+a {
+    text-decoration: none;
+    color:#000;
+}
+.fleft{
+    float: left;
+}
+.fright{
+    float: right;
+}
+.center{
+    text-align: center;
+}
+.highlight{
+    background: #EAE8E9;
+    padding: 15px 0px;
+    border-top: 1px solid #C2C2C2;
+    border-bottom: 1px solid #C2C2C2;
+}
+
+.width80{
+    width: 90%;
+    margin:0px auto;
+}
+
+.width90{
+    width: 98%;
+    margin:0px auto;
+}
+/*
+    main style
+*/
+
+header, footer, section{
+    margin:0 auto;
+    padding:0;
+}
+
+header{
+    min-height: 60px;
+}
+
+footer{
+    min-height: 40px;
+    text-align: center;
+}
+
+section{
+    min-height: 400px;
+}
+
+/*
+    nav bar
+*/
+.navbar-default{
+    background-color: #ececec;
+    background-image: -moz-linear-gradient(top, #e1e1e1, #f2f2f2);
+    background-image: -ms-linear-gradient(top, #e1e1e1, #f2f2f2);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eee), to(#f2f2f2));
+    background-image: -webkit-linear-gradient(top, #e1e1e1, #f2f2f2);
+    background-image: -o-linear-gradient(top, #e1e1e1, #f2f2f2);
+    background-image: linear-gradient(top, #e1e1e1, #f2f2f2);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e1e1', endColorstr='#f2f2f2', GradientType=0);
+    border-bottom:1px solid #C0C0C0;
+}
+
+#header-box .navbar{
+    margin-bottom: 10px;
+}
+
+.nav {
+    width: 96%;
+    padding:0px 10px 0;
+    margin:0px auto;
+}
+.nav div{
+    height: 48px;
+    line-height: 48px;
+}
+.nav-back{
+    float:left;
+    width: 6%;
+    text-align: center;
+    font-size:1.2em;
+}
+.nav-title{
+    float: left;
+    width: 80%;
+    color:#666;
+ }
+.nav-left{
+    float: left;
+}
+.nav-title h5{
+    font-size:1.2em;
+    line-height: 48px;
+    margin:0px;
+}
+.nav-menu{
+    float: right;
+    width: 10%;
+    text-align: center;
+    font-size: 20px;
+}
+.nav-menu{
+    cursor:pointer;
+}
+
+.nav-menu .dropdown-menu{
+    right: 0px;
+    left: auto;
+    min-width: 80px;
+}
+
+.nav-menu .dropdown-menu li {
+    font-size: 1.2em;
+}
+
+
+/*
+    welcome
+*/
+
+#page-welcome section{
+    margin-top:-40px;
+}
+#ad-banner{
+    letter-spacing:5px
+}
+/*
+    reg 1
+*/
+#reg-info{
+    margin-bottom:20px;
+}
+
+#reg-info p{
+    width: 80%;
+    margin: 0px auto;
+}
+
+#login_id{
+    width: 50%;
+    margin-right:6%;
+    float: left;
+}
+#phone-button{
+    float: left;
+}
+
+#check_phone {
+     margin:20px auto;
+ }
+
+/*
+    reg2
+*/
+#address-select{
+    margin-bottom: 5px;
+}
+#address-select select {
+    float: left;
+    width: 48%;
+    margin: 5px auto 0;
+}
+#address-select #city{
+    float: right;
+}
+#address-div{
+    margin-top:0px;
+}
+#reg2 label {color: #666;}
+
+/*
+    login form
+*/
+#logo {
+    margin:90px auto 5px;
+    text-align: center;
+    background: url('../img/logo.png') no-repeat 50% 0;
+    height: 65px;
+}
+
+.form-signin .glyphicon{
+    color:darkgray;
+    top:0px;
+}
+
+.input-group {
+    margin:20px auto;
+}
+
+#user-link{
+    margin:10px auto;
+}
+#user-link a{
+    font-size:16px;
+    color: #888;
+}
+
+
+/*
+    home- device list
+ */
+#device_title{
+    height: 30px;
+    line-height: 30px;
+    text-indent: 2em;
+}
+.device_list{
+    padding:0;
+    background: #fff;
+}
+.device_list li{
+    padding:10px 0 10px;
+    list-style-type:none;
+    border-bottom: 1px dashed #87BA21;
+    position: relative;
+}
+.device_list.ul:first-child{
+    padding-top:10px;
+}
+.device_list li .li-bg{
+    float: left;
+    margin-left:0;
+    background: #87BA21;
+    width: 8px;
+    height: 90px;
+    margin-right: 10px;
+
+}
+.device_list .device_info{
+    float: left;
+    width: 150px;
+}
+
+.device_info a{
+    color:#000;
+    text-decoration: none;
+}
+.device_list .device_info h3{
+    margin-top:15px;
+    font-size: 16px;
+}
+.device_list .device_info p{
+    height: 20px;
+    line-height: 20px;
+    color:#777;
+    margin:0;padding:0;
+}
+.device_list .warranty_info{
+    position: absolute;
+    right:10px;
+    top: 30px;
+    width: 105px;
+    height: 51px;
+    text-align: center;
+    padding-left:35px;
+    background: url("../img/yanbao40.png") no-repeat 5px 10px ;
+    background-size: 30%;
+    border: 1px solid #51bf87;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.warranty_info p{
+    font-size:14px;
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+    line-height: 16px;
+}
+footer img{
+    width: 100%;
+}
+
+/***
+    ADD DEVICE
+***/
+#form-add_device label {
+    width: 25%;
+    float: left;
+    line-height: 36px;
+    margin:0px;
+}
+#form-add_device input,#form-add_device select {
+    width:74%;
+    float: left;
+}
+#form-add_device span{
+    line-height: 36px;
+    color:#999;
+}
+#form-add_device select.input35{
+    width: 34%;
+    margin-right:10px;
+}
+#form-add_device input.input50{
+    width: 50%;
+    margin-right:10px;
+}
+#form-add_device input.input20{
+    width: 20%;
+    margin-right:10px;
+}
+
+
+/*
+    Device Show
+*/
+.device_img{
+    margin-right:10px;
+}
+.device_img img{
+    width: 70px;
+}
+li.device_show .device_info{
+    width: auto;
+    padding-top: 6px;
+    text-align: left;
+}
+
+.device_list li.device_show{
+    height: 135px;
+}
+li.device_show .li-bg {
+    height: 100%;
+}
+.show_atta{
+    margin-right: 5px;
+}
+.show_atta a{
+    display: block;
+    padding:5px;
+    margin:5px 5px 5px 0;
+    text-align:center;
+    border: 1px solid #00d1fe;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.buy_service .warranty_info a{
+    display: block;
+    height: 51px;
+    margin-left: -37px;
+    padding-left: 35px;
+    width: 103px;
+    padding-top: 16px;
+}
+
+
+.buy_service .warranty_time{
+    position: absolute;
+    left:20%;
+    padding-left:59px;
+    margin-top:10px;
+    background:url('../img/clock_biao.png') 0px 10px no-repeat ;
+    background-size: 40%;
+}
+
+.module{
+    padding-left:1%;
+}
+.module li{
+    float:left;
+    width: 22%;
+    margin:0 1%;
+    list-style-type: none;
+    text-align: center;
+    background: no-repeat 13px 0px;
+    background-size: 70%;
+}
+.module li img{
+    width: 90%;
+    margin-bottom: 5px;
+}
+
+.module ul{
+    margin:20px 0px;
+    padding: 0px;
+}
+/*
+    setting
+*/
+
+.list-setting{
+    padding:0px;
+}
+.list-setting li{
+    padding: 0px 15px;
+    margin-bottom: 5px;
+    list-style: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+.list-setting li span{
+    height: 40px;
+    line-height: 40px;
+}
+.list-setting a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+
+/*
+    shop nearby
+*/
+
+.list-shop{
+    padding:0px;
+}
+.list-shop li{
+    padding: 0px 15px;
+    margin-bottom: 5px;
+    list-style: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+.list-shop li span{
+    height: 40px;
+    line-height: 40px;
+}
+.list-shop a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+/*
+
+    fix tel
+    repair tel
+
+*/
+
+.tel_info strong{
+    color: #0071e7;
+    font-size: 18px;
+}
+
+/*
+    buy extend
+
+*/
+#buy_extend {
+    text-align: center;
+}
+#buy_extend button{
+    margin-top: 10px;
+    width: 40%;
+}
+#buy_extend h3{
+    padding-top:15px;
+    padding-left:10px;
+    font-size:16px;
+    color: #666;
+}
+#buy_extend p.fright{
+    padding-top:32px;
+    padding-right:18%;
+}
+#buy_extend div.fright{
+    padding-top:32px;
+    padding-right:5%;
+}
+.spinner-button-group{
+    width: 126px;
+    margin:4px 15px 4px auto;
+
+}
+.spinner-button-group .form-group{
+    margin-bottom: 4px;
+    text-align: center;
+}
+.form-group #year{
+    width: 30px;
+    text-decoration:solid ;
+    margin:0px;
+    line-height: 40px;
+    height: 35px;
+    border-bottom: 2px solid #777;
+}
+#buy_extend .spinner-buttons button {
+    height: 34px;
+    width: 34px;
+    margin:0px;
+    display: inline-block;
+    text-align:center;
+    font-size:22px;
+    border-radius:2px;
+}

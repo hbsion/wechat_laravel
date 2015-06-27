@@ -1,0 +1,221 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>智能空调</title>
+<link href="css/common.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div class="main">
+    
+    	<div class="banner bg02">
+        	<div class="btnSwitch on" id="btnSwitch"></div>
+        	<div class="cont">
+            	<div class="contInner">
+                    
+                    <div class="text02" id="modeText02"><span>26</span><sup>°</sup></div>
+                    
+                    <div class="closeIcon"></div>
+                    
+                </div>
+            </div>
+            <dl class="shiwai">
+            	<dt>室外指数</dt>
+                <dd>
+                	<span class="icon01 lineR"><i>33</i><em>℃</em></span>
+                	<span class="icon02 lineR"><i>31</i><em>%</em></span>
+                	<span class="icon03"><i>158</i><em>ug/㎥</em></span>
+                </dd>
+            </dl>
+            <dl class="wind">
+            	<dt>风速</dt>
+                <dd class="wind00"></dd>
+            </dl>
+        </div>
+        
+        <div class="mode">
+        	<dl class="modeTtem mb1">
+            	<dt>温度选择</dt>
+                <dd>
+                	<div class="setTemp" id="setTemp">
+                        <b class="sub"><i></i></b>
+                    	<b class="add"><i></i><i></i></b>
+                        <span class="temp"><span>26</span><sup>°</sup></span>
+                    </div>
+                </dd>
+            </dl>
+        	<dl class="modeTtem mb1">
+            	<dt>模式选择</dt>
+                <dd class="mulBtn">
+                	<b class="selected">自动模式</b><b>手动模式</b><b>睡眠模式</b>
+                </dd>
+            </dl>
+        </div>
+        
+        <div class="btnBox pd1">
+        	<b class="icon04" id="child">童锁</b>
+        	<b class="icon05" id="wind" target="0">风速<div>风速 1X</div><i>1X</i></b>
+        	<b class="icon06" id="timer">定时</b>
+        </div>
+    
+    </div>
+    
+    <div class="mask" id="mask">
+    	<div class="tips"><span></span></div>
+    </div>    
+    
+	<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		$(function() {			
+			
+			//开关机
+			$('#btnSwitch').click(function(){
+				if($(this).hasClass('on')){
+					$(this).removeClass('on');
+					$('.mulBtn b, .btnBox b, #setTemp b, .modeTtem').addClass('disabled');
+					$('#modeText02').hide().html('<span>26</span><sup>°</sup>');
+					$('.closeIcon').show();
+					$('#wind').attr('target','0').find('i').hide();
+					$('.wind dd').attr('class','wind00');
+					$('#setTemp > .temp').find('span').text('26');
+					$('#child').removeClass('selected');
+				}else{
+					$(this).addClass('on');
+					$('.mulBtn b, .btnBox b, #setTemp b, .modeTtem').removeClass('disabled');
+					$('#modeText02').show();
+					$('.closeIcon').hide();
+				}
+			});
+			
+			//设置温度
+			$('#setTemp > b').click(function(){
+				var self = $(this);
+				if(self.hasClass('disabled')) return false;
+				var temp = self.siblings('.temp').find('span');
+				var tempN = parseInt(temp.text());
+				if(self.hasClass('sub')){
+					if(tempN <= 18){
+						tips('已经达到最低温度');
+						return;
+					}else{
+						tempN--;
+					}
+				}else{
+					if(tempN >= 35){
+						tips('已经达到最高温度');
+						return;
+					}else{
+						tempN++;
+					}
+				}
+				temp.text(tempN);
+				$('#modeText02').html('<span>'+ tempN +'</span><sup>°</sup>');
+			});
+			
+			//提示
+			function tips(text){
+				var mask = $('#mask');
+				mask.show().find('span').text(text);
+				setTimeout(function(){
+					mask.animate({'opacity':0},600,function(){
+						mask.hide().css('opacity',1);
+					});
+				},2000);
+			}
+			
+			//选择模式
+			$('.mulBtn b').click(function(){
+				if($(this).hasClass('disabled')){
+					return false;
+				}else{
+					$(this).addClass('selected').siblings().removeClass('selected');
+				}
+			});
+			
+			//童锁
+			$('#child').click(function(){
+				var self = $(this);
+				if(self.hasClass('disabled')){
+					return false;
+				}else{
+					if(self.hasClass('selected')){
+						self.removeClass('selected');
+						$('.mulBtn b, #setTemp b, .modeTtem, #wind, #timer').removeClass('disabled');
+					}else{
+						self.addClass('selected');
+						$('.mulBtn b, #setTemp b, .modeTtem, #wind, #timer').addClass('disabled');
+					}
+				}
+			});
+			
+			//风速
+			$('#wind').bind('touchstart',function(){
+				var self = $(this);
+				var act = self.find('div');
+				var cur = self.find('i');
+				var tar = parseInt(self.attr('target'));
+				if(self.hasClass('disabled')){
+					return false;
+				}else{
+					tar++;
+					tar = tar>5 ? 0 : tar;
+					act.stop(true,true).show().text('风速 '+ tar +'X');
+					self.bind('touchend',function(){
+						self.attr('target', tar);
+						act.animate({'opacity':0},500,function(){
+							act.hide().css('opacity',1);
+						});
+						cur.text(tar +'X');
+						if(tar>0){
+							cur.show();
+						}else{
+							cur.hide();
+						}
+						$('.wind dd').attr('class','wind0'+tar);
+					});
+				}
+			});
+			
+			//定时
+			$('#timer').click(function(){
+				tips('体验设备，无法设定定时');
+			});
+						
+			//
+			
+			/*
+			$('#roundBg04').swipe( {
+				swipeStatus:function(event, phase, direction, distance, duration,fingerCount){
+
+				}
+            });
+			
+			$('#menu').swipe( {
+				swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+					switch(direction){
+						case 'left':
+							
+							
+							break;
+						case 'right':
+							
+							
+							break;
+					}
+				},
+				threshold:30
+            });
+			*/
+			
+        });
+    </script>
+    
+</body>
+</html>
